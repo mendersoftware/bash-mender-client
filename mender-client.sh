@@ -187,8 +187,12 @@ function check_deployment() {
     elif [ "$status_code" == "401" ]; then
       log "JWT token expired, obtain a new one"
       JWT=$(get_jwt)
+    elif [ "$status_code" == "204" ]; then
+      echo -n "."
+    else
+      log "WARNING: Unexpected HTTP Status $status_code"
     fi
-    echo -n "."
+
     sleep 5
   done
 }
